@@ -2,7 +2,8 @@
   "name": "ambary",
   "version": "1.0.0",
   "description": "Plain object in memory database",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "build:lib": "npm run lint && npm run test:cov && npm run build",
@@ -22,6 +23,20 @@
   ],
   "author": "Valerii Radchenko",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ValeriyRadchenko/ambary"
+  },
+  "bugs": {
+    "url": "https://github.com/ValeriyRadchenko/ambary/issues"
+  },
+  "engines": {
+    "node": ">= 12.14"
+  },
+  "files": [
+    "/dist"
+  ],
+  "readmeFilename": "README.md",
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.4",
