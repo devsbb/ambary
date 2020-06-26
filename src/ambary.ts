@@ -34,12 +34,12 @@ export class Ambary extends BaseAmbary {
 
   find(condition: string | IAmbaryCondition) {
     const handler = this.conditionHandlersMap[typeof condition];
-    return this.getIndexIterator().filter(item => handler(condition, item));
+    return this.getIndexIterator().filter((item) => handler(condition, item));
   }
 
   findOne(condition: string | IAmbaryCondition) {
     const handler = this.conditionHandlersMap[typeof condition];
-    return this.getIndexIterator().find(item => handler(condition, item));
+    return this.getIndexIterator().find((item) => handler(condition, item));
   }
 
   pipe(dist: Ambary) {
@@ -79,14 +79,7 @@ export class Ambary extends BaseAmbary {
 
   private transformerFilter(item: IAmbaryRecord) {
     return ({ condition }) => {
-      return this.matchModel(condition, item)
-      // for (const key of Object.keys(condition)) {
-      //   if (condition[key] !== item[key]) {
-      //     return false;
-      //   }
-      // }
-
-      // return true;
+      return this.matchModel(condition, item);
     };
   }
 }
