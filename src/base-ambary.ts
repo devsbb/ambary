@@ -32,11 +32,11 @@ export class BaseAmbary {
     let parent = this.model;
 
     for (const pathKey of path) {
-      const level = parent[pathKey];
+      const result = this.overrideKeyConstructor(pathKey, Constructor);
+
+      const level = parent[result.key];
 
       if (!level) {
-        const result = this.overrideKeyConstructor(pathKey, Constructor);
-
         parent[result.key] = new result.Constructor();
         parent = parent[result.key];
         continue;

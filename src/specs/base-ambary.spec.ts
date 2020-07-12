@@ -87,13 +87,25 @@ describe('BaseAmbary', () => {
   it('should set ambary item to non-existing parent(Array)', () => {
     ambary.set({
       key: 'level4_1',
-      value: 'test set',
+      value: 'test set1',
       path: ['[level1_3]', '0', 'level3_1'],
+    });
+
+    ambary.set({
+      key: 'level4_2',
+      value: 'test set2',
+      path: ['[level1_3]', '0', 'level3_1'],
+    });
+
+    ambary.set({
+      key: 'level4_1',
+      value: 'test set3',
+      path: ['[level1_3]', '0', 'level3_2'],
     });
 
     const result = ambary.get('level1_3.0.level3_1.level4_1');
 
-    expect(result).toEqual('test set');
+    expect(result).toEqual('test set1');
     expect(Array.isArray(ambary.get('level1_3'))).toBeTruthy();
   });
 
