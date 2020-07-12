@@ -1,9 +1,16 @@
+export type Constructor<
+  T = object,
+  A extends any[] = any[],
+  Static = {}
+> = (new (...a: A) => T) & Static;
+
 export interface IAmbaryRecord {
   key: string;
   value: any;
   path: string[];
   type: string;
   group: 'model' | 'value';
+  constructor: Constructor;
   fullPath: string;
 }
 
@@ -31,4 +38,5 @@ export interface IAmbarySetOptions {
   key: string;
   value: any;
   path: string[];
+  Constructor?: Constructor;
 }

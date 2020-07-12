@@ -1,4 +1,9 @@
-import { IAmbaryRecord, IAmbaryOptions, IAmbarySetOptions } from './interfaces';
+import {
+  IAmbaryRecord,
+  IAmbaryOptions,
+  IAmbarySetOptions,
+  Constructor,
+} from './interfaces';
 
 export class BaseAmbary {
   private index = new Map<string, IAmbaryRecord>();
@@ -23,15 +28,17 @@ export class BaseAmbary {
     return typeof this.get(fullPath) !== 'undefined';
   }
 
-  protected set({ key, value, path }: IAmbarySetOptions) {
+  protected set({ key, value, path, Constructor = Object }: IAmbarySetOptions) {
     let parent = this.model;
 
     for (const pathKey of path) {
       const level = parent[pathKey];
 
       if (!level) {
-        parent[pathKey] = {};
-        parent = parent[pathKey];
+        const result = this.overrideKeyConstructor(pathKey, Constructor);
+
+        parent[result.key] = new result.Constructor();
+        parent = parent[result.key];
         continue;
       }
 
@@ -68,6 +75,7 @@ export class BaseAmbary {
       path,
       type,
       group,
+      constructor: value?.constructor || null,
       fullPath: [...path, key].join('.'),
     };
   }
@@ -95,7 +103,7 @@ export class BaseAmbary {
     return result;
   }
 
-  protected createRecordIterator = function*(
+  protected createRecordIterator = function* (
     model: Record<string, any> = this.model,
     path = [],
   ) {
@@ -124,6 +132,13 @@ export class BaseAmbary {
 
   private getGroup(type: string) {
     return ['Object', 'Array'].includes(type) ? 'model' : 'value';
+  }
+
+  private overrideKeyConstructor(key: string, DefaultConstructor: Constructor) {
+    const isArray = key.charAt(0) + key.charAt(key.length - 1) === '[]';
+    return isArray
+      ? { Constructor: Array, key: key.substr(1, key.length - 2) }
+      : { Constructor: DefaultConstructor, key };
   }
 
   toJSON() {

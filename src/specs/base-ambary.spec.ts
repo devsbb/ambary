@@ -84,6 +84,19 @@ describe('BaseAmbary', () => {
     expect(result).toEqual('test set');
   });
 
+  it('should set ambary item to non-existing parent(Array)', () => {
+    ambary.set({
+      key: 'level4_1',
+      value: 'test set',
+      path: ['[level1_3]', '0', 'level3_1'],
+    });
+
+    const result = ambary.get('level1_3.0.level3_1.level4_1');
+
+    expect(result).toEqual('test set');
+    expect(Array.isArray(ambary.get('level1_3'))).toBeTruthy();
+  });
+
   it('should return index iterator', () => {
     ambary.makeIndex();
     const iterator = ambary.getIndexIterator();

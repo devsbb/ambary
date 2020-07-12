@@ -85,6 +85,7 @@ describe('Ambary', () => {
       path: ['level1_2', 'level2_1'],
       type: 'Number',
       group: 'value',
+      constructor: Number,
       fullPath: 'level1_2.level2_1.level3_2',
     });
   });
@@ -98,6 +99,7 @@ describe('Ambary', () => {
       path: ['level1_2', 'level2_1'],
       type: 'String',
       group: 'value',
+      constructor: String,
       fullPath: 'level1_2.level2_1.level3_1',
     });
   });
@@ -113,6 +115,7 @@ describe('Ambary', () => {
       path: ['level1_2', 'level2_1'],
       type: 'Number',
       group: 'value',
+      constructor: Number,
       fullPath: 'level1_2.level2_1.level3_2',
     });
   });
